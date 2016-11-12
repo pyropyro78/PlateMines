@@ -1,0 +1,12 @@
+# When set true this will not allow players to interact with the item listed globally across the server.
+# Options are OFF (everything is normal), STOP (ignores player interactions),
+# EXPLODE (explodes player and ensures that they die), KILL (They just die).
+# Default is: OFF.
+WoodenPlate: OFF
+IronPlate: OFF
+GoldPlate: OFF
+TripWire: OFF
+StonePlate: OFF
+# If explode is used this sets the power of the explosion.
+# Default is: 1.
+ExplodePower: 1
