@@ -1,5 +1,7 @@
 package com.pyromanticgaming.platemines;
 
+import org.bukkit.entity.Player;
+
 /*
 *Copyright (c) <2016>, <pyropyro78>, <pyropyro78@gmail.com>
 *All rights reserved.
@@ -10,12 +12,14 @@ package com.pyromanticgaming.platemines;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class PlateMines extends JavaPlugin implements Listener{
 	
 	public static String StonePlate, WoodenPlate, IronPlate, GoldPlate, TripWire;
+	public static boolean StonePlatePermission, WoodenPlatePermission, IronPlatePermission, GoldPlatePermission, TripWirePermission;
 	public static Float ExplodePower;
 	@Override
 	public void onEnable() {
@@ -26,11 +30,16 @@ public final class PlateMines extends JavaPlugin implements Listener{
 		
 		this.saveDefaultConfig();
 		StonePlate = this.getConfig().getString("StonePlate").toUpperCase();
+		StonePlatePermission = this.getConfig().getBoolean("StonePlatePermission");
 		ExplodePower = (float) this.getConfig().getDouble("ExplodePower");
 		WoodenPlate = this.getConfig().getString("WoodenPlate").toUpperCase();
+		WoodenPlatePermission = this.getConfig().getBoolean("WoodenPlatePermission");
 		IronPlate = this.getConfig().getString("IronPlate").toUpperCase();
+		IronPlatePermission = this.getConfig().getBoolean("IronPlatePermission");
 		GoldPlate = this.getConfig().getString("GoldPlate").toUpperCase();
+		GoldPlatePermission = this.getConfig().getBoolean("GoldPlatePermission");
 		TripWire = this.getConfig().getString("TripWire").toUpperCase();
+		TripWirePermission = this.getConfig().getBoolean("TripWirePermission");
 	}
 	
 	@Override
@@ -40,74 +49,90 @@ public final class PlateMines extends JavaPlugin implements Listener{
 
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent event) {
-		if (!StonePlate.equals("OFF") && event.getClickedBlock().getType().name().equals("STONE_PLATE")) {
-			if (StonePlate.equals("STOP")) {
+		Player p = event.getPlayer();
+		if ((!StonePlate.equalsIgnoreCase("OFF") || StonePlatePermission) && event.getClickedBlock().getType().name().equals("STONE_PLATE") && (event.getAction() == event.getAction().PHYSICAL)) {
+			if (StonePlate.equalsIgnoreCase("STOP") || (p.hasPermission("PlateMines.StonePlate.Stop") && !p.hasPermission("PlateMines.StonePlate.Stop.Ignore"))) {
 				event.setCancelled(true);
+				return;
 			} 
-			else if (StonePlate.equals("EXPLODE")) {
+			else if (StonePlate.equalsIgnoreCase("Explode") || (p.hasPermission("PlateMines.StonePlate.Explode") && !p.hasPermission("PlateMines.StonePlate.Stop.Explode"))) {
 				event.setCancelled(true);
 				event.getPlayer().getLocation().getWorld().createExplosion(event.getPlayer().getLocation(), ExplodePower);
 				event.getPlayer().setHealth(0);
+				return;
 			}
-			else if (StonePlate.equals("KILL")) {
+			else if (StonePlate.equalsIgnoreCase("KILL") || (p.hasPermission("PlateMines.StonePlate.Kill") && !p.hasPermission("PlateMines.StonePlate.Kill.Ignore"))) {
 				event.setCancelled(true);
 				event.getPlayer().setHealth(0);
+				return;
 			}
 		}
-		if (!WoodenPlate.equals("OFF") && event.getClickedBlock().getType().name().equals("WOOD_PLATE")) {
-			if (WoodenPlate.equals("STOP")) {
+		if ((!WoodenPlate.equalsIgnoreCase("OFF") || WoodenPlatePermission) && event.getClickedBlock().getType().name().equals("WOOD_PLATE") && (event.getAction() == event.getAction().PHYSICAL)) {
+			if (WoodenPlate.equalsIgnoreCase("STOP") || (p.hasPermission("PlateMines.WoodenPlate.Stop") && !p.hasPermission("PlateMines.WoodenPlate.Stop.Ignore"))) {
 				event.setCancelled(true);
+				return;
 			} 
-			else if (WoodenPlate.equals("EXPLODE")) {
+			else if (WoodenPlate.equalsIgnoreCase("EXPLODE") || (p.hasPermission("PlateMines.WoodenPlate.Explode") && !p.hasPermission("PlateMines.WoodenPlate.Explode.Ignore"))) {
 				event.setCancelled(true);
 				event.getPlayer().getLocation().getWorld().createExplosion(event.getPlayer().getLocation(), ExplodePower);
 				event.getPlayer().setHealth(0);
+				return;
 			}
-			else if (WoodenPlate.equals("KILL")) {
+			else if (WoodenPlate.equalsIgnoreCase("KILL") || (p.hasPermission("PlateMines.WoodenPlate.Kill") && !p.hasPermission("PlateMines.WoodenPlate.Kill.Ignore"))) {
 				event.setCancelled(true);
 				event.getPlayer().setHealth(0);
+				return;
 			}
 		}
-		if (!IronPlate.equals("OFF") && event.getClickedBlock().getType().name().equals("IRON_PLATE")) {
-			if (IronPlate.equals("STOP")) {
+		if ((!IronPlate.equalsIgnoreCase("OFF") || IronPlatePermission) && event.getClickedBlock().getType().name().equals("IRON_PLATE") && (event.getAction() == Action.PHYSICAL)) {
+			if (IronPlate.equalsIgnoreCase("STOP") || (p.hasPermission("PlateMines.IronPlate.Stop") && !p.hasPermission("PlateMines.IronPlate.Stop.Ignore"))) {
 				event.setCancelled(true);
+				return;
 			} 
-			else if (IronPlate.equals("EXPLODE")) {
+			else if (IronPlate.equalsIgnoreCase("EXPLODE") || (p.hasPermission("PlateMines.IronPlate.Explode") && !p.hasPermission("PlateMines.IronPlate.Explode.Ignore"))) {
 				event.setCancelled(true);
 				event.getPlayer().getLocation().getWorld().createExplosion(event.getPlayer().getLocation(), ExplodePower);
 				event.getPlayer().setHealth(0);
+				return;
 			}
-			else if (IronPlate.equals("KILL")) {
+			else if (IronPlate.equalsIgnoreCase("KILL") || (p.hasPermission("PlateMines.IronPlate.Kill") && !p.hasPermission("PlateMines.IronPlate.Kill.Ignore"))) {
 				event.setCancelled(true);
 				event.getPlayer().setHealth(0);
+				return;
 			}
 		}
-		if (!GoldPlate.equals("OFF") && event.getClickedBlock().getType().name().equals("GOLD_PLATE")) {
-			if (GoldPlate.equals("STOP")) {
+		if ((!GoldPlate.equals("OFF") || GoldPlatePermission) && event.getClickedBlock().getType().name().equals("GOLD_PLATE") && (event.getAction() == event.getAction().PHYSICAL)) {
+			if (GoldPlate.equalsIgnoreCase("STOP") || (p.hasPermission("PlateMines.GoldPlate.Stop") && !p.hasPermission("PlateMines.GoldPlate.Stop.Ignore"))) {
 				event.setCancelled(true);
+				return;
 			} 
-			else if (GoldPlate.equals("EXPLODE")) {
+			else if (GoldPlate.equalsIgnoreCase("EXPLODE") || (p.hasPermission("PlateMines.GoldPlate.Explode") && !p.hasPermission("PlateMines.GoldPlate.Explode.Ignore"))) {
 				event.setCancelled(true);
 				event.getPlayer().getLocation().getWorld().createExplosion(event.getPlayer().getLocation(), ExplodePower);
 				event.getPlayer().setHealth(0);
+				return;
 			}
-			else if (GoldPlate.equals("KILL")) {
+			else if (GoldPlate.equalsIgnoreCase("KILL") || (p.hasPermission("PlateMines.GoldPlate.Kill") && !p.hasPermission("PlateMines.GoldPlate.Kill.Ignore"))) {
 				event.setCancelled(true);
 				event.getPlayer().setHealth(0);
+				return;
 			}
 		}
-		if (!TripWire.equals("OFF") && event.getClickedBlock().getType().name().equals("TRIPWIRE")) {
-			if (TripWire.equals("STOP")) {
+		if ((!TripWire.equals("OFF") || TripWirePermission) && event.getClickedBlock().getType().name().equals("TRIPWIRE") && (event.getAction() == event.getAction().PHYSICAL)) {
+			if (TripWire.equalsIgnoreCase("STOP") || (p.hasPermission("PlateMines.TripWire.Stop") && !p.hasPermission("PlateMines.TripWire.Stop.Ignore"))) {
 				event.setCancelled(true);
+				return;
 			} 
-			else if (TripWire.equals("EXPLODE")) {
+			else if (TripWire.equalsIgnoreCase("EXPLODE") || (p.hasPermission("PlateMines.TripWire.Explode") && !p.hasPermission("PlateMines.TripWire.Explode.Ignore"))) {
 				event.setCancelled(true);
 				event.getPlayer().getLocation().getWorld().createExplosion(event.getPlayer().getLocation(), ExplodePower);
 				event.getPlayer().setHealth(0);
+				return;
 			}
-			else if (TripWire.equals("KILL")) {
+			else if (TripWire.equalsIgnoreCase("KILL") || (p.hasPermission("PlateMines.TripWire.Kill") && !p.hasPermission("PlateMines.TripWire.Kill.Ignore"))) {
 				event.setCancelled(true);
 				event.getPlayer().setHealth(0);
+				return;
 			}
 		}
 	}

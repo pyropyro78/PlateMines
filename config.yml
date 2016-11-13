@@ -2,11 +2,19 @@
 # Options are OFF (everything is normal), STOP (ignores player interactions),
 # EXPLODE (explodes player and ensures that they die), KILL (They just die).
 # Default is: OFF.
+# If a Permission is set to true that player will have that reaction
+# If player has more than one permission or a global toggle is set it will default to STOP - EXPLODE - KILL in that order.
+# Default is: False
 WoodenPlate: OFF
+WoodenPlatePermission: False
 IronPlate: OFF
+IronPlatePermission: False
 GoldPlate: OFF
+GoldPlatePermission: False
 TripWire: OFF
+TripWirePermission: False
 StonePlate: OFF
+StonePlatePermission: False
 # If explode is used this sets the power of the explosion.
 # Default is: 1.
 ExplodePower: 1
