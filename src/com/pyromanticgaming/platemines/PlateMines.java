@@ -1,6 +1,8 @@
 package com.pyromanticgaming.platemines;
 
- /*
+import org.bukkit.Material;
+
+/*
  *Copyright (c) <2016>, <pyropyro78>, <pyropyro78@gmail.com>
  *All rights reserved.
  *
@@ -10,32 +12,45 @@ package com.pyromanticgaming.platemines;
 import org.bukkit.entity.Player;
 
 /*
-*Copyright (c) <2016>, <pyropyro78>, <pyropyro78@gmail.com>
-*All rights reserved.
-*
-*
-*THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ *Copyright (c) <2016>, <pyropyro78>, <pyropyro78@gmail.com>
+ *All rights reserved.
+ *
+ *
+ *THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityInteractEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class PlateMines extends JavaPlugin implements Listener{
-	
+
 	public static String StonePlate, WoodenPlate, IronPlate, GoldPlate, TripWire;
 	public static boolean StonePlatePermission, WoodenPlatePermission, IronPlatePermission, GoldPlatePermission, TripWirePermission;
 	public static Float ExplodePower;
+
+	public static String StonePlateMob, WoodenPlateMob, IronPlateMob, GoldPlateMob, TripWireMob;
+	public static Float ExplodePowerMob;
+
 	@Override
 	public void onEnable() {
-		
+
 		getLogger().info("PlateMines has been enabled.");
 
 		getServer().getPluginManager().registerEvents(this, this);
-		
+
 		this.saveDefaultConfig();
+
+		StonePlateMob = this.getConfig().getString("StonePlateMob").toUpperCase();
+		ExplodePowerMob = (float) this.getConfig().getDouble("ExplodePowerMob");
+		WoodenPlateMob = this.getConfig().getString("WoodenPlateMob").toUpperCase();
+		IronPlateMob = this.getConfig().getString("IronPlateMob").toUpperCase();
+		GoldPlateMob = this.getConfig().getString("GoldPlateMob").toUpperCase();
+		TripWireMob = this.getConfig().getString("TripWireMob").toUpperCase();
+
 		StonePlate = this.getConfig().getString("StonePlate").toUpperCase();
 		StonePlatePermission = this.getConfig().getBoolean("StonePlatePermission");
 		ExplodePower = (float) this.getConfig().getDouble("ExplodePower");
@@ -48,10 +63,104 @@ public final class PlateMines extends JavaPlugin implements Listener{
 		TripWire = this.getConfig().getString("TripWire").toUpperCase();
 		TripWirePermission = this.getConfig().getBoolean("TripWirePermission");
 	}
-	
+
 	@Override
 	public void onDisable() {
 		getLogger().info("PlateMines has been disabled.");
+	}
+
+	@EventHandler
+	public void onEntityInteract(EntityInteractEvent event) {
+		if (!StonePlateMob.equals("OFF") && event.getBlock().getType().equals(Material.STONE_PLATE)) {
+			if (StonePlateMob.equals("STOP")) {
+				event.setCancelled(true);
+			} 
+			else if (StonePlateMob.equals("REMOVE")) {
+				event.setCancelled(true);
+				event.getEntity().remove();
+			}
+			else if (StonePlateMob.equals("EXPLODE")) {
+				event.setCancelled(true);
+				event.getEntity().getLocation().getWorld().createExplosion(event.getEntity().getLocation(), ExplodePowerMob);
+				event.getEntity().remove();
+			}
+			else if (StonePlateMob.equals("KILL")) {
+				event.setCancelled(true);
+				event.getEntity().setFallDistance(255);
+			}
+		}
+		if (!WoodenPlateMob.equals("OFF") && event.getBlock().getType().equals(Material.WOOD_PLATE)) {
+			if (WoodenPlateMob.equals("STOP")) {
+				event.setCancelled(true);
+			} 
+			else if (WoodenPlateMob.equals("REMOVE")) {
+				event.setCancelled(true);
+				event.getEntity().remove();
+			}
+			else if (WoodenPlateMob.equals("EXPLODE")) {
+				event.setCancelled(true);
+				event.getEntity().getLocation().getWorld().createExplosion(event.getEntity().getLocation(), ExplodePowerMob);
+				event.getEntity().remove();
+			}
+			else if (WoodenPlateMob.equals("KILL")) {
+				event.setCancelled(true);
+				event.getEntity().setFallDistance(255);
+			}
+		}
+		if (!IronPlateMob.equals("OFF") && event.getBlock().getType().equals(Material.IRON_PLATE)) {
+			if (IronPlateMob.equals("STOP")) {
+				event.setCancelled(true);
+			} 
+			else if (IronPlateMob.equals("REMOVE")) {
+				event.setCancelled(true);
+				event.getEntity().remove();
+			}
+			else if (IronPlateMob.equals("EXPLODE")) {
+				event.setCancelled(true);
+				event.getEntity().getLocation().getWorld().createExplosion(event.getEntity().getLocation(), ExplodePowerMob);
+				event.getEntity().remove();
+			}
+			else if (IronPlateMob.equals("KILL")) {
+				event.setCancelled(true);
+				event.getEntity().setFallDistance(255);
+			}
+		}
+		if (!GoldPlateMob.equals("OFF") && event.getBlock().getType().equals(Material.GOLD_PLATE)) {
+			if (GoldPlateMob.equals("STOP")) {
+				event.setCancelled(true);
+			} 
+			else if (GoldPlateMob.equals("REMOVE")) {
+				event.setCancelled(true);
+				event.getEntity().remove();
+			}
+			else if (GoldPlateMob.equals("EXPLODE")) {
+				event.setCancelled(true);
+				event.getEntity().getLocation().getWorld().createExplosion(event.getEntity().getLocation(), ExplodePowerMob);
+				event.getEntity().remove();
+			}
+			else if (GoldPlateMob.equals("KILL")) {
+				event.setCancelled(true);
+				event.getEntity().setFallDistance(255);
+			}
+		}
+		if (!TripWireMob.equals("OFF") && event.getBlock().getType().equals(Material.TRIPWIRE)) {
+			if (TripWireMob.equals("STOP")) {
+				event.setCancelled(true);
+			} 
+			else if (TripWireMob.equals("REMOVE")) {
+				event.setCancelled(true);
+				event.getEntity().remove();
+			}
+			else if (TripWireMob.equals("EXPLODE")) {
+				event.setCancelled(true);
+				event.getEntity().getLocation().getWorld().createExplosion(event.getEntity().getLocation(), ExplodePowerMob);
+				event.getEntity().remove();
+			}
+			else if (TripWireMob.equals("KILL")) {
+				event.setCancelled(true);
+				event.getEntity().setFallDistance(255);
+			}
+		}
 	}
 
 	@EventHandler
