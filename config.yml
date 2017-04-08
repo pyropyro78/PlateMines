@@ -7,6 +7,8 @@
 # If player has more than one permission or a global toggle is set it will default to STOP - EXPLODE - KILL in that order.
 # Default is: False
 
+ForceDefuseTool: False
+
 WoodenPlate: OFF
 WoodenPlatePermission: False
 

@@ -1,6 +1,8 @@
 package com.pyromanticgaming.platemines;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 
 /*
  *Copyright (c) <2016>, <pyropyro78>, <pyropyro78@gmail.com>
@@ -24,12 +26,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityInteractEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class PlateMines extends JavaPlugin implements Listener{
 
 	public static String StonePlate, WoodenPlate, IronPlate, GoldPlate, TripWire;
-	public static boolean StonePlatePermission, WoodenPlatePermission, IronPlatePermission, GoldPlatePermission, TripWirePermission;
+	public static boolean ForceDefuseTool, StonePlatePermission, WoodenPlatePermission, IronPlatePermission, GoldPlatePermission, TripWirePermission;
 	public static Float ExplodePower;
 
 	public static String StonePlateMob, WoodenPlateMob, IronPlateMob, GoldPlateMob, TripWireMob;
@@ -44,6 +47,8 @@ public final class PlateMines extends JavaPlugin implements Listener{
 
 		this.saveDefaultConfig();
 
+		ForceDefuseTool = this.getConfig().getBoolean("ForceDefuseTool");
+		
 		StonePlateMob = this.getConfig().getString("StonePlateMob").toUpperCase();
 		ExplodePowerMob = (float) this.getConfig().getDouble("ExplodePowerMob");
 		WoodenPlateMob = this.getConfig().getString("WoodenPlateMob").toUpperCase();
@@ -166,6 +171,30 @@ public final class PlateMines extends JavaPlugin implements Listener{
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		Player p = event.getPlayer();
+		
+		
+		/*
+		 * 
+		 * Shears now drop the block stone plate
+		 * 
+		 * ToDo
+		 * --------------
+		 * Check ForceDefuseTool
+		 * Check for other redstone triggers
+		 * Block other methods of breaking redstone triggers
+		 * Allow Custom defuse tool?
+		 * Finish config to let server owners know that this is a global check regardless of player mines
+		 * 
+		 */
+		if (event.getClickedBlock().getType().name().equals("STONE_PLATE") && p.getItemInHand().getType().equals(Material.SHEARS)) {
+			Block block = event.getClickedBlock().getLocation().getBlock();
+			Location blockloc = event.getClickedBlock().getLocation();
+			Material blockmat = block.getState().getType();
+			ItemStack blocktodrop = new ItemStack(blockmat);
+			block.setType(Material.AIR);
+			block.getWorld().dropItemNaturally(blockloc, blocktodrop);
+		}
+		
 		if ((!StonePlate.equalsIgnoreCase("OFF") || StonePlatePermission) && event.getClickedBlock().getType().name().equals("STONE_PLATE") && (event.getAction() == event.getAction().PHYSICAL)) {
 			if (StonePlate.equalsIgnoreCase("STOP") || (p.hasPermission("PlateMines.StonePlate.Stop") && !p.hasPermission("PlateMines.StonePlate.Stop.Ignore"))) {
 				event.setCancelled(true);
