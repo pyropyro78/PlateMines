@@ -1,6 +1,6 @@
 # When set true this will not allow players to interact with the item listed globally across the server.
 # Options are OFF (everything is normal), STOP (ignores player interactions),
-# EXPLODE (explodes player and ensures that they die), KILL (They just die).
+# EXPLODE (explodes where the triggered block is), KILL (They just die).
 # Default is: OFF.
 
 # If a Permission is set to true that player will have that reaction.
@@ -28,15 +28,17 @@ StonePlatePermission: False
 
 ExplodePower: 1
 
-# If true player will be killed regardless of health when an explosion is triggered from above items.
+# If true player will be killed regardless of health when an explosion is triggered from above listed blocks.
 # Default is: False
 
 AlwaysKillOnExplode: False
 
 # If Set to true players must have shears in their hand in order to right click to remove the redstone trap and reclaim the item.
+# Note that when set to true if a player breaks the block or the block under the trigger item that is not set to off it will trigger.
+# As well as when true players will receive a message that a tool is needed to diffuse.
 # Default is: False
 
-ForceDefuseTool: False
+ForceDiffuseTool: False
 
 # If set to true the redstone trigger will be removed if set off.
 # Default is: False

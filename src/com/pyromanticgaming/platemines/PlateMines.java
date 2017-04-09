@@ -24,7 +24,7 @@ import org.bukkit.entity.Player;
 public final class PlateMines extends JavaPlugin implements Listener{
 
 	public static String StonePlate, WoodenPlate, IronPlate, GoldPlate, TripWire;
-	public static boolean alwayskill, removeblock, ForceDefuseTool, StonePlatePermission, WoodenPlatePermission, IronPlatePermission, GoldPlatePermission, TripWirePermission;
+	public static boolean alwayskill, removeblock, ForceDiffuseTool, StonePlatePermission, WoodenPlatePermission, IronPlatePermission, GoldPlatePermission, TripWirePermission;
 	public static Float ExplodePower;
 
 	public static String StonePlateMob, WoodenPlateMob, IronPlateMob, GoldPlateMob, TripWireMob;
@@ -39,7 +39,7 @@ public final class PlateMines extends JavaPlugin implements Listener{
 
 		this.saveDefaultConfig();
 
-		ForceDefuseTool = this.getConfig().getBoolean("ForceDefuseTool");
+		ForceDiffuseTool = this.getConfig().getBoolean("ForceDiffuseTool");
 		removeblock = this.getConfig().getBoolean("RemoveBlock");
 		alwayskill = this.getConfig().getBoolean("AlwaysKillOnExplode");
 
@@ -52,13 +52,18 @@ public final class PlateMines extends JavaPlugin implements Listener{
 
 		StonePlate = this.getConfig().getString("StonePlate").toUpperCase();
 		StonePlatePermission = this.getConfig().getBoolean("StonePlatePermission");
+
 		ExplodePower = (float) this.getConfig().getDouble("ExplodePower");
+
 		WoodenPlate = this.getConfig().getString("WoodenPlate").toUpperCase();
 		WoodenPlatePermission = this.getConfig().getBoolean("WoodenPlatePermission");
+
 		IronPlate = this.getConfig().getString("IronPlate").toUpperCase();
 		IronPlatePermission = this.getConfig().getBoolean("IronPlatePermission");
+
 		GoldPlate = this.getConfig().getString("GoldPlate").toUpperCase();
 		GoldPlatePermission = this.getConfig().getBoolean("GoldPlatePermission");
+
 		TripWire = this.getConfig().getString("TripWire").toUpperCase();
 		TripWirePermission = this.getConfig().getBoolean("TripWirePermission");
 	}
@@ -70,7 +75,7 @@ public final class PlateMines extends JavaPlugin implements Listener{
 
 	@EventHandler
 	public void onEntityInteract(EntityInteractEvent event) {
-		if (!StonePlateMob.equals("OFF") && event.getBlock().getType().equals(Material.STONE_PLATE)) {
+		if (!StonePlateMob.equals("FALSE") && event.getBlock().getType().equals(Material.STONE_PLATE)) {
 			if (StonePlateMob.equals("STOP")) {
 				event.setCancelled(true);
 			} 
@@ -88,7 +93,7 @@ public final class PlateMines extends JavaPlugin implements Listener{
 				event.getEntity().setFallDistance(255);
 			}
 		}
-		if (!WoodenPlateMob.equals("OFF") && event.getBlock().getType().equals(Material.WOOD_PLATE)) {
+		if (!WoodenPlateMob.equals("FALSE") && event.getBlock().getType().equals(Material.WOOD_PLATE)) {
 			if (WoodenPlateMob.equals("STOP")) {
 				event.setCancelled(true);
 			} 
@@ -106,7 +111,7 @@ public final class PlateMines extends JavaPlugin implements Listener{
 				event.getEntity().setFallDistance(255);
 			}
 		}
-		if (!IronPlateMob.equals("OFF") && event.getBlock().getType().equals(Material.IRON_PLATE)) {
+		if (!IronPlateMob.equals("FALSE") && event.getBlock().getType().equals(Material.IRON_PLATE)) {
 			if (IronPlateMob.equals("STOP")) {
 				event.setCancelled(true);
 			} 
@@ -124,7 +129,7 @@ public final class PlateMines extends JavaPlugin implements Listener{
 				event.getEntity().setFallDistance(255);
 			}
 		}
-		if (!GoldPlateMob.equals("OFF") && event.getBlock().getType().equals(Material.GOLD_PLATE)) {
+		if (!GoldPlateMob.equals("FALSE") && event.getBlock().getType().equals(Material.GOLD_PLATE)) {
 			if (GoldPlateMob.equals("STOP")) {
 				event.setCancelled(true);
 			} 
@@ -142,7 +147,7 @@ public final class PlateMines extends JavaPlugin implements Listener{
 				event.getEntity().setFallDistance(255);
 			}
 		}
-		if (!TripWireMob.equals("OFF") && event.getBlock().getType().equals(Material.TRIPWIRE)) {
+		if (!TripWireMob.equals("FALSE") && event.getBlock().getType().equals(Material.TRIPWIRE)) {
 			if (TripWireMob.equals("STOP")) {
 				event.setCancelled(true);
 			} 
@@ -166,7 +171,7 @@ public final class PlateMines extends JavaPlugin implements Listener{
 	public void onBlockBreak(BlockBreakEvent event) {
 
 		Player p = event.getPlayer();
-		
+
 		Boolean canBeStoneKilled = (p.hasPermission("PlateMines.StonePlate.Kill") && !p.hasPermission("PlateMines.StonePlate.Kill.Ignore")) || !StonePlatePermission;
 		Boolean canBeStoneExploded = (p.hasPermission("PlateMines.StonePlate.Explode") && !p.hasPermission("PlateMines.StonePlate.Explode.Ignore")) || !StonePlatePermission;
 		Boolean canBeIronKilled = (p.hasPermission("PlateMines.IronPlate.Kill") && !p.hasPermission("PlateMines.IronPlate.Kill.Ignore")) || !IronPlatePermission;
@@ -177,13 +182,13 @@ public final class PlateMines extends JavaPlugin implements Listener{
 		Boolean canBeGoldExploded = (p.hasPermission("PlateMines.GoldPlate.Explode") && !p.hasPermission("PlateMines.GoldPlate.Explode.Ignore")) || !GoldPlatePermission;
 		Boolean canBeTripWireKilled = (p.hasPermission("PlateMines.TripWire.Kill") && !p.hasPermission("PlateMines.TripWire.Kill.Ignore")) || !TripWirePermission;
 		Boolean canBeTripWireExploded = (p.hasPermission("PlateMines.TripWire.Explode") && !p.hasPermission("PlateMines.TripWire.Explode.Ignore")) || !TripWirePermission;
-		
+
 		Double x = event.getBlock().getLocation().getX();
 		Double y = event.getBlock().getLocation().getY();
 		Double z = event.getBlock().getLocation().getZ();
 		Location blockloc = new Location(event.getPlayer().getWorld(), x, (y + 1), z);
 		Material blockmat = blockloc.getBlock().getType();
-		
+
 		if ((((blockmat.equals(Material.WOOD_PLATE) && WoodenPlate.equalsIgnoreCase("Kill") && canBeWoodKilled) || (blockmat.equals(Material.STONE_PLATE) && StonePlate.equalsIgnoreCase("Kill") /* && canBeStoneKilled */) || (blockmat.equals(Material.IRON_PLATE) && IronPlate.equalsIgnoreCase("Kill") && canBeIronKilled) || (blockmat.equals(Material.GOLD_PLATE) && GoldPlate.equalsIgnoreCase("Kill") && canBeGoldKilled) || (blockmat.equals(Material.TRIPWIRE) && TripWire.equalsIgnoreCase("Kill") && canBeTripWireKilled)) || ((event.getBlock().getType().equals(Material.WOOD_PLATE) && WoodenPlate.equalsIgnoreCase("Kill") && canBeWoodKilled) || (event.getBlock().getType().equals(Material.STONE_PLATE) && StonePlate.equalsIgnoreCase("Kill") && canBeStoneKilled) || (event.getBlock().getType().equals(Material.IRON_PLATE) && IronPlate.equalsIgnoreCase("Kill") && canBeIronKilled) || (event.getBlock().getType().equals(Material.GOLD_PLATE) && GoldPlate.equalsIgnoreCase("Kill") && canBeGoldKilled) || (event.getBlock().getType().equals(Material.TRIPWIRE) && TripWire.equalsIgnoreCase("Kill") && canBeTripWireKilled)))) {
 			KillPlayerBreakBlock(event, blockmat, blockloc);
 		}
@@ -198,31 +203,44 @@ public final class PlateMines extends JavaPlugin implements Listener{
 		Player p = event.getPlayer();
 		if (!p.isDead()) {
 
-
 			Boolean redstoneActivatedByPhysical = (event.getAction() == event.getAction().PHYSICAL);
-			/*
-			 * 
-			 * ToDo
-			 * --------------
-			 * All wires state tool needed and allow breaking
-			 * Allow Custom defuse tool?
-			 * 
-			 */
-			if ((event.getAction().equals(Action.RIGHT_CLICK_BLOCK) || event.getAction().equals(Action.LEFT_CLICK_BLOCK)) && ((event.getClickedBlock().getType().equals(Material.WOOD_PLATE) && !WoodenPlate.equalsIgnoreCase("OFF")) || (event.getClickedBlock().getType().equals(Material.STONE_PLATE) && !StonePlate.equalsIgnoreCase("OFF")) || (event.getClickedBlock().getType().equals(Material.IRON_PLATE) && !IronPlate.equalsIgnoreCase("OFF")) || (event.getClickedBlock().getType().equals(Material.GOLD_PLATE) && !GoldPlate.equalsIgnoreCase("OFF")) || (event.getClickedBlock().getType().equals(Material.TRIPWIRE) && !TripWire.equalsIgnoreCase("OFF"))) && p.getItemInHand().getType().equals(Material.SHEARS) && ForceDefuseTool) {
-				Block block = event.getClickedBlock().getLocation().getBlock();
-				Location blockloc = event.getClickedBlock().getLocation();
-				Material blockmat = block.getState().getType();
-				ItemStack blocktodrop = new ItemStack(blockmat);
-				block.setType(Material.AIR);
-				block.getWorld().dropItemNaturally(blockloc, blocktodrop);
+
+			if (ForceDiffuseTool) {
+				Boolean rightclickblock = event.getAction().equals(Action.RIGHT_CLICK_BLOCK);
+				Boolean leftclickblock = event.getAction().equals(Action.LEFT_CLICK_BLOCK);
+
+				Boolean holdingshears = p.getItemInHand().getType().equals(Material.SHEARS);
+				Boolean tripwireclicked = false, goldlateclicked = false, ironplateclicked = false, stoneplateclicked = false, woodplateclicked = false;
+
+				if (event.getClickedBlock() != null) {
+					woodplateclicked = event.getClickedBlock().getType().equals(Material.WOOD_PLATE) && !WoodenPlate.equalsIgnoreCase("FALSE");
+					stoneplateclicked = event.getClickedBlock().getType().equals(Material.STONE_PLATE) && !StonePlate.equalsIgnoreCase("FALSE");
+					ironplateclicked = event.getClickedBlock().getType().equals(Material.IRON_PLATE) && !IronPlate.equalsIgnoreCase("FALSE");
+					goldlateclicked = event.getClickedBlock().getType().equals(Material.GOLD_PLATE) && !GoldPlate.equalsIgnoreCase("FALSE");
+					tripwireclicked = event.getClickedBlock().getType().equals(Material.TRIPWIRE) && !TripWire.equalsIgnoreCase("FALSE");
+				}
+
+				if ((rightclickblock || leftclickblock) && holdingshears) {
+					if (woodplateclicked || stoneplateclicked || ironplateclicked || goldlateclicked || tripwireclicked) {
+						Block block = event.getClickedBlock().getLocation().getBlock();
+						Location blockloc = event.getClickedBlock().getLocation();
+						Material blockmat = block.getState().getType();
+						ItemStack blocktodrop = new ItemStack(blockmat);
+						block.setType(Material.AIR);
+						block.getWorld().dropItemNaturally(blockloc, blocktodrop);
+					}
+				}
+
+				if ((rightclickblock || leftclickblock) && !holdingshears) {
+					if (woodplateclicked || stoneplateclicked || ironplateclicked || goldlateclicked || tripwireclicked) {
+						p.sendMessage("You need a tool to diffuse this.");
+					}
+				}
 			}
 
-			if (event.getAction().equals(Action.LEFT_CLICK_BLOCK) && ((event.getClickedBlock().getType().equals(Material.WOOD_PLATE) && !WoodenPlate.equalsIgnoreCase("OFF")) || (event.getClickedBlock().getType().equals(Material.STONE_PLATE) && !StonePlate.equalsIgnoreCase("OFF")) || (event.getClickedBlock().getType().equals(Material.IRON_PLATE) && !IronPlate.equalsIgnoreCase("OFF")) || (event.getClickedBlock().getType().equals(Material.GOLD_PLATE) && !GoldPlate.equalsIgnoreCase("OFF")) || (event.getClickedBlock().getType().equals(Material.TRIPWIRE) && !TripWire.equalsIgnoreCase("OFF"))) && !p.getItemInHand().getType().equals(Material.SHEARS) && ForceDefuseTool) {
-				p.sendMessage("You need a tool to defuse this.");
-			}
 
 			if (redstoneActivatedByPhysical) {
-				if ((!StonePlate.equalsIgnoreCase("OFF") || StonePlatePermission) && event.getClickedBlock().getType().name().equals("STONE_PLATE")) {
+				if ((!StonePlate.equalsIgnoreCase("FALSE") || StonePlatePermission) && event.getClickedBlock().getType().name().equals("STONE_PLATE")) {
 					if (StonePlate.equalsIgnoreCase("STOP") || (p.hasPermission("PlateMines.StonePlate.Stop") && !p.hasPermission("PlateMines.StonePlate.Stop.Ignore"))) {
 						event.setCancelled(true);
 						return;
@@ -235,7 +253,7 @@ public final class PlateMines extends JavaPlugin implements Listener{
 						return;
 					}
 				}
-				if ((!WoodenPlate.equalsIgnoreCase("OFF") || WoodenPlatePermission) && event.getClickedBlock().getType().name().equals("WOOD_PLATE")) {
+				if ((!WoodenPlate.equalsIgnoreCase("FALSE") || WoodenPlatePermission) && event.getClickedBlock().getType().name().equals("WOOD_PLATE")) {
 					if (WoodenPlate.equalsIgnoreCase("STOP") || (p.hasPermission("PlateMines.WoodenPlate.Stop") && !p.hasPermission("PlateMines.WoodenPlate.Stop.Ignore"))) {
 						event.setCancelled(true);
 						return;
@@ -247,7 +265,7 @@ public final class PlateMines extends JavaPlugin implements Listener{
 						KillPlayerInteract(event);
 					}
 				}
-				if ((!IronPlate.equalsIgnoreCase("OFF") || IronPlatePermission) && event.getClickedBlock().getType().name().equals("IRON_PLATE")) {
+				if ((!IronPlate.equalsIgnoreCase("FALSE") || IronPlatePermission) && event.getClickedBlock().getType().name().equals("IRON_PLATE")) {
 					if (IronPlate.equalsIgnoreCase("STOP") || (p.hasPermission("PlateMines.IronPlate.Stop") && !p.hasPermission("PlateMines.IronPlate.Stop.Ignore"))) {
 						event.setCancelled(true);
 						return;
@@ -259,7 +277,7 @@ public final class PlateMines extends JavaPlugin implements Listener{
 						KillPlayerInteract(event);
 					}
 				}
-				if ((!GoldPlate.equals("OFF") || GoldPlatePermission) && event.getClickedBlock().getType().name().equals("GOLD_PLATE")) {
+				if ((!GoldPlate.equals("FALSE") || GoldPlatePermission) && event.getClickedBlock().getType().name().equals("GOLD_PLATE")) {
 					if (GoldPlate.equalsIgnoreCase("STOP") || (p.hasPermission("PlateMines.GoldPlate.Stop") && !p.hasPermission("PlateMines.GoldPlate.Stop.Ignore"))) {
 						event.setCancelled(true);
 						return;
@@ -271,7 +289,7 @@ public final class PlateMines extends JavaPlugin implements Listener{
 						KillPlayerInteract(event);
 					}
 				}
-				if ((!TripWire.equals("OFF") || TripWirePermission) && event.getClickedBlock().getType().name().equals("TRIPWIRE")) {
+				if ((!TripWire.equals("FALSE") || TripWirePermission) && event.getClickedBlock().getType().name().equals("TRIPWIRE")) {
 					if (TripWire.equalsIgnoreCase("STOP") || (p.hasPermission("PlateMines.TripWire.Stop") && !p.hasPermission("PlateMines.TripWire.Stop.Ignore"))) {
 						event.setCancelled(true);
 						return;
@@ -305,7 +323,7 @@ public final class PlateMines extends JavaPlugin implements Listener{
 		}
 		event.getPlayer().getLocation().getWorld().createExplosion(event.getPlayer().getLocation(), ExplodePower);
 		if (alwayskill) {
-		event.getPlayer().setHealth(0);
+			event.getPlayer().setHealth(0);
 		}
 		return;
 	}
@@ -340,7 +358,7 @@ public final class PlateMines extends JavaPlugin implements Listener{
 		}
 		event.getBlock().getLocation().getWorld().createExplosion(blockloc, ExplodePower);
 		if (alwayskill) {
-		event.getPlayer().setHealth(0);
+			event.getPlayer().setHealth(0);
 		}
 		return;
 	}
