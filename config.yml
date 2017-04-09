@@ -28,6 +28,11 @@ StonePlatePermission: False
 
 ExplodePower: 1
 
+# If true player will be killed regardless of health when an explosion is triggered from above items.
+# Default is: False
+
+AlwaysKillOnExplode: False
+
 # If Set to true players must have shears in their hand in order to right click to remove the redstone trap and reclaim the item.
 # Default is: False
 
