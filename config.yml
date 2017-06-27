@@ -1,9 +1,9 @@
-# When set true this will not allow players to interact with the item listed globally across the server.
+# When set True this will not allow players to interact with the item listed globally across the server.
 # Options are OFF (everything is normal), STOP (ignores player interactions),
 # EXPLODE (explodes where the triggered block is), KILL (They just die).
 # Default is: OFF.
 
-# If a Permission is set to true that player will have that reaction.
+# If a Permission is set to True that player will have that reaction.
 # If player has more than one permission or a global toggle is set it will default to STOP - EXPLODE - KILL in that order.
 # Default is: False
 
@@ -28,24 +28,35 @@ StonePlatePermission: False
 
 ExplodePower: 1
 
-# If true player will be killed regardless of health when an explosion is triggered from above listed blocks.
+# If True player will be killed regardless of health when an explosion is triggered from above listed blocks.
 # Default is: False
 
 AlwaysKillOnExplode: False
 
-# If Set to true players must have shears in their hand in order to right click to remove the redstone trap and reclaim the item.
-# Note that when set to true if a player breaks the block or the block under the trigger item that is not set to off it will trigger.
-# As well as when true players will receive a message that a tool is needed to diffuse.
+# If True players will have a chance to not be killed/explode (excluding if always kill is True) when event is triggered.
+# Default is: False
+
+AllowChanceToIgnore: False
+
+# How often will the devices fail? 1 = 1%
+# This setting only is used if the Allow Chance above is set to True.
+# Default is: 15
+
+ChanceToIgnoreOutOf100: 15
+
+# If Set to True players must have shears in their hand in order to right click to remove the redstone trap and reclaim the item.
+# Note that when set to True if a player breaks the block or the block under the trigger item that is not set to off it will trigger.
+# As well as when True players will receive a message that a tool is needed to diffuse.
 # Default is: False
 
 ForceDiffuseTool: False
 
-# If set to true the redstone trigger will be removed if set off.
+# If set to True the redstone trigger will be deleted if set off.
 # Default is: False
 
 RemoveBlock: False	
 
-# When set true this will not allow mobs to interact with the item listed globally across the server.
+# When set True this will not allow mobs to interact with the item listed globally across the server.
 # Options are OFF (everything is normal), STOP (ignores entity), REMOVE (removes entity), EXPLODE (explodes entity), KILL (Simulates impacting the ground until dead).
 # Default is: OFF.
 
