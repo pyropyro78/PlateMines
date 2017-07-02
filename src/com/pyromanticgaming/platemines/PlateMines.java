@@ -220,6 +220,10 @@ public final class PlateMines extends JavaPlugin implements Listener{
 			
 			Material interactedMaterial = event.getClickedBlock().getType();
 			
+			if (interactedMaterial == null) {
+				return;
+			}
+			
 			event.getAction();
 			Boolean redstoneActivatedByPhysical = (event.getAction() == Action.PHYSICAL);
 
