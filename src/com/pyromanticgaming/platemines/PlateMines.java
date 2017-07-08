@@ -90,94 +90,96 @@ public final class PlateMines extends JavaPlugin implements Listener{
 
 		Material interactedBlock = event.getBlock().getType();
 
-		if (!StonePlateMob.equals("FALSE") && interactedBlock.equals(Material.STONE_PLATE)) {
-			if (StonePlateMob.equals("STOP")) {
-				event.setCancelled(true);
-			} 
-			else if (StonePlateMob.equals("REMOVE")) {
-				event.setCancelled(true);
-				event.getEntity().remove();
+		if (interactedBlock != null) {
+			if (!StonePlateMob.equals("FALSE") && interactedBlock.equals(Material.STONE_PLATE)) {
+				if (StonePlateMob.equals("STOP")) {
+					event.setCancelled(true);
+				} 
+				else if (StonePlateMob.equals("REMOVE")) {
+					event.setCancelled(true);
+					event.getEntity().remove();
+				}
+				else if (StonePlateMob.equals("EXPLODE")) {
+					event.setCancelled(true);
+					event.getEntity().getLocation().getWorld().createExplosion(event.getEntity().getLocation(), ExplodePowerMob);
+					event.getEntity().remove();
+				}
+				else if (StonePlateMob.equals("KILL")) {
+					event.setCancelled(true);
+					event.getEntity().setFallDistance(255);
+				}
 			}
-			else if (StonePlateMob.equals("EXPLODE")) {
-				event.setCancelled(true);
-				event.getEntity().getLocation().getWorld().createExplosion(event.getEntity().getLocation(), ExplodePowerMob);
-				event.getEntity().remove();
+			if (!WoodenPlateMob.equals("FALSE") && interactedBlock.equals(Material.WOOD_PLATE)) {
+				if (WoodenPlateMob.equals("STOP")) {
+					event.setCancelled(true);
+				} 
+				else if (WoodenPlateMob.equals("REMOVE")) {
+					event.setCancelled(true);
+					event.getEntity().remove();
+				}
+				else if (WoodenPlateMob.equals("EXPLODE")) {
+					event.setCancelled(true);
+					event.getEntity().getLocation().getWorld().createExplosion(event.getEntity().getLocation(), ExplodePowerMob);
+					event.getEntity().remove();
+				}
+				else if (WoodenPlateMob.equals("KILL")) {
+					event.setCancelled(true);
+					event.getEntity().setFallDistance(255);
+				}
 			}
-			else if (StonePlateMob.equals("KILL")) {
-				event.setCancelled(true);
-				event.getEntity().setFallDistance(255);
+			if (!IronPlateMob.equals("FALSE") && interactedBlock.equals(Material.IRON_PLATE)) {
+				if (IronPlateMob.equals("STOP")) {
+					event.setCancelled(true);
+				} 
+				else if (IronPlateMob.equals("REMOVE")) {
+					event.setCancelled(true);
+					event.getEntity().remove();
+				}
+				else if (IronPlateMob.equals("EXPLODE")) {
+					event.setCancelled(true);
+					event.getEntity().getLocation().getWorld().createExplosion(event.getEntity().getLocation(), ExplodePowerMob);
+					event.getEntity().remove();
+				}
+				else if (IronPlateMob.equals("KILL")) {
+					event.setCancelled(true);
+					event.getEntity().setFallDistance(255);
+				}
 			}
-		}
-		if (!WoodenPlateMob.equals("FALSE") && interactedBlock.equals(Material.WOOD_PLATE)) {
-			if (WoodenPlateMob.equals("STOP")) {
-				event.setCancelled(true);
-			} 
-			else if (WoodenPlateMob.equals("REMOVE")) {
-				event.setCancelled(true);
-				event.getEntity().remove();
+			if (!GoldPlateMob.equals("FALSE") && interactedBlock.equals(Material.GOLD_PLATE)) {
+				if (GoldPlateMob.equals("STOP")) {
+					event.setCancelled(true);
+				} 
+				else if (GoldPlateMob.equals("REMOVE")) {
+					event.setCancelled(true);
+					event.getEntity().remove();
+				}
+				else if (GoldPlateMob.equals("EXPLODE")) {
+					event.setCancelled(true);
+					event.getEntity().getLocation().getWorld().createExplosion(event.getEntity().getLocation(), ExplodePowerMob);
+					event.getEntity().remove();
+				}
+				else if (GoldPlateMob.equals("KILL")) {
+					event.setCancelled(true);
+					event.getEntity().setFallDistance(255);
+				}
 			}
-			else if (WoodenPlateMob.equals("EXPLODE")) {
-				event.setCancelled(true);
-				event.getEntity().getLocation().getWorld().createExplosion(event.getEntity().getLocation(), ExplodePowerMob);
-				event.getEntity().remove();
-			}
-			else if (WoodenPlateMob.equals("KILL")) {
-				event.setCancelled(true);
-				event.getEntity().setFallDistance(255);
-			}
-		}
-		if (!IronPlateMob.equals("FALSE") && interactedBlock.equals(Material.IRON_PLATE)) {
-			if (IronPlateMob.equals("STOP")) {
-				event.setCancelled(true);
-			} 
-			else if (IronPlateMob.equals("REMOVE")) {
-				event.setCancelled(true);
-				event.getEntity().remove();
-			}
-			else if (IronPlateMob.equals("EXPLODE")) {
-				event.setCancelled(true);
-				event.getEntity().getLocation().getWorld().createExplosion(event.getEntity().getLocation(), ExplodePowerMob);
-				event.getEntity().remove();
-			}
-			else if (IronPlateMob.equals("KILL")) {
-				event.setCancelled(true);
-				event.getEntity().setFallDistance(255);
-			}
-		}
-		if (!GoldPlateMob.equals("FALSE") && interactedBlock.equals(Material.GOLD_PLATE)) {
-			if (GoldPlateMob.equals("STOP")) {
-				event.setCancelled(true);
-			} 
-			else if (GoldPlateMob.equals("REMOVE")) {
-				event.setCancelled(true);
-				event.getEntity().remove();
-			}
-			else if (GoldPlateMob.equals("EXPLODE")) {
-				event.setCancelled(true);
-				event.getEntity().getLocation().getWorld().createExplosion(event.getEntity().getLocation(), ExplodePowerMob);
-				event.getEntity().remove();
-			}
-			else if (GoldPlateMob.equals("KILL")) {
-				event.setCancelled(true);
-				event.getEntity().setFallDistance(255);
-			}
-		}
-		if (!TripWireMob.equals("FALSE") && interactedBlock.equals(Material.TRIPWIRE)) {
-			if (TripWireMob.equals("STOP")) {
-				event.setCancelled(true);
-			} 
-			else if (TripWireMob.equals("REMOVE")) {
-				event.setCancelled(true);
-				event.getEntity().remove();
-			}
-			else if (TripWireMob.equals("EXPLODE")) {
-				event.setCancelled(true);
-				event.getEntity().getLocation().getWorld().createExplosion(event.getEntity().getLocation(), ExplodePowerMob);
-				event.getEntity().remove();
-			}
-			else if (TripWireMob.equals("KILL")) {
-				event.setCancelled(true);
-				event.getEntity().setFallDistance(255);
+			if (!TripWireMob.equals("FALSE") && interactedBlock.equals(Material.TRIPWIRE)) {
+				if (TripWireMob.equals("STOP")) {
+					event.setCancelled(true);
+				} 
+				else if (TripWireMob.equals("REMOVE")) {
+					event.setCancelled(true);
+					event.getEntity().remove();
+				}
+				else if (TripWireMob.equals("EXPLODE")) {
+					event.setCancelled(true);
+					event.getEntity().getLocation().getWorld().createExplosion(event.getEntity().getLocation(), ExplodePowerMob);
+					event.getEntity().remove();
+				}
+				else if (TripWireMob.equals("KILL")) {
+					event.setCancelled(true);
+					event.getEntity().setFallDistance(255);
+				}
 			}
 		}
 	}
@@ -217,110 +219,109 @@ public final class PlateMines extends JavaPlugin implements Listener{
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		Player p = event.getPlayer();
 		if (!p.isDead()) {
-			
+
 			Material interactedMaterial = event.getClickedBlock().getType();
-			
-			if (interactedMaterial == null) {
-				return;
-			}
-			
-			event.getAction();
-			Boolean redstoneActivatedByPhysical = (event.getAction() == Action.PHYSICAL);
 
-			if (ForceDiffuseTool) {
-				Boolean rightclickblock = event.getAction().equals(Action.RIGHT_CLICK_BLOCK);
-				Boolean leftclickblock = event.getAction().equals(Action.LEFT_CLICK_BLOCK);
+			if (interactedMaterial != null) {
 
-				Boolean holdingshears = p.getItemInHand().getType().equals(Material.SHEARS);
-				Boolean tripwireclicked = false, goldlateclicked = false, ironplateclicked = false, stoneplateclicked = false, woodplateclicked = false;
+				event.getAction();
+				Boolean redstoneActivatedByPhysical = (event.getAction() == Action.PHYSICAL);
 
-				if (event.getClickedBlock() != null) {
-					woodplateclicked = interactedMaterial.equals(Material.WOOD_PLATE) && !WoodenPlate.equalsIgnoreCase("FALSE");
-					stoneplateclicked = interactedMaterial.equals(Material.STONE_PLATE) && !StonePlate.equalsIgnoreCase("FALSE");
-					ironplateclicked = interactedMaterial.equals(Material.IRON_PLATE) && !IronPlate.equalsIgnoreCase("FALSE");
-					goldlateclicked = interactedMaterial.equals(Material.GOLD_PLATE) && !GoldPlate.equalsIgnoreCase("FALSE");
-					tripwireclicked = interactedMaterial.equals(Material.TRIPWIRE) && !TripWire.equalsIgnoreCase("FALSE");
+				if (ForceDiffuseTool) {
+					Boolean rightclickblock = event.getAction().equals(Action.RIGHT_CLICK_BLOCK);
+					Boolean leftclickblock = event.getAction().equals(Action.LEFT_CLICK_BLOCK);
+
+					Boolean holdingshears = p.getItemInHand().getType().equals(Material.SHEARS);
+					Boolean tripwireclicked = false, goldlateclicked = false, ironplateclicked = false, stoneplateclicked = false, woodplateclicked = false;
+
+					if (event.getClickedBlock() != null) {
+						woodplateclicked = interactedMaterial.equals(Material.WOOD_PLATE) && !WoodenPlate.equalsIgnoreCase("FALSE");
+						stoneplateclicked = interactedMaterial.equals(Material.STONE_PLATE) && !StonePlate.equalsIgnoreCase("FALSE");
+						ironplateclicked = interactedMaterial.equals(Material.IRON_PLATE) && !IronPlate.equalsIgnoreCase("FALSE");
+						goldlateclicked = interactedMaterial.equals(Material.GOLD_PLATE) && !GoldPlate.equalsIgnoreCase("FALSE");
+						tripwireclicked = interactedMaterial.equals(Material.TRIPWIRE) && !TripWire.equalsIgnoreCase("FALSE");
+					}
+
+					if ((rightclickblock || leftclickblock) && holdingshears) {
+						if (woodplateclicked || stoneplateclicked || ironplateclicked || goldlateclicked || tripwireclicked) {
+							Block block = event.getClickedBlock().getLocation().getBlock();
+							Location blockloc = event.getClickedBlock().getLocation();
+							Material blockmat = block.getState().getType();
+							ItemStack blocktodrop = new ItemStack(blockmat);
+							block.setType(Material.AIR);
+							block.getWorld().dropItemNaturally(blockloc, blocktodrop);
+						}
+					}
+
+					if ((rightclickblock || leftclickblock) && !holdingshears) {
+						if (woodplateclicked || stoneplateclicked || ironplateclicked || goldlateclicked || tripwireclicked) {
+							p.sendMessage("You need a tool to diffuse this.");
+						}
+					}
 				}
 
-				if ((rightclickblock || leftclickblock) && holdingshears) {
-					if (woodplateclicked || stoneplateclicked || ironplateclicked || goldlateclicked || tripwireclicked) {
-						Block block = event.getClickedBlock().getLocation().getBlock();
-						Location blockloc = event.getClickedBlock().getLocation();
-						Material blockmat = block.getState().getType();
-						ItemStack blocktodrop = new ItemStack(blockmat);
-						block.setType(Material.AIR);
-						block.getWorld().dropItemNaturally(blockloc, blocktodrop);
-					}
-				}
 
-				if ((rightclickblock || leftclickblock) && !holdingshears) {
-					if (woodplateclicked || stoneplateclicked || ironplateclicked || goldlateclicked || tripwireclicked) {
-						p.sendMessage("You need a tool to diffuse this.");
+				if (redstoneActivatedByPhysical) {
+					if ((!StonePlate.equalsIgnoreCase("FALSE") || StonePlatePermission) && event.getClickedBlock().getType().name().equals("STONE_PLATE")) {
+						if (StonePlate.equalsIgnoreCase("STOP") || (p.hasPermission("PlateMines.StonePlate.Stop") && !p.hasPermission("PlateMines.StonePlate.Stop.Ignore"))) {
+							event.setCancelled(true);
+							return;
+						} 
+						else if (StonePlate.equalsIgnoreCase("Explode") || (p.hasPermission("PlateMines.StonePlate.Explode") && !p.hasPermission("PlateMines.StonePlate.Stop.Explode"))) {
+							ExplodePlayerInteract(event, interactedMaterial);
+						}
+						else if (StonePlate.equalsIgnoreCase("KILL") || (p.hasPermission("PlateMines.StonePlate.Kill") && !p.hasPermission("PlateMines.StonePlate.Kill.Ignore"))) {
+							KillPlayerInteract(event, interactedMaterial);
+							return;
+						}
 					}
-				}
-			}
-
-
-			if (redstoneActivatedByPhysical) {
-				if ((!StonePlate.equalsIgnoreCase("FALSE") || StonePlatePermission) && event.getClickedBlock().getType().name().equals("STONE_PLATE")) {
-					if (StonePlate.equalsIgnoreCase("STOP") || (p.hasPermission("PlateMines.StonePlate.Stop") && !p.hasPermission("PlateMines.StonePlate.Stop.Ignore"))) {
-						event.setCancelled(true);
-						return;
-					} 
-					else if (StonePlate.equalsIgnoreCase("Explode") || (p.hasPermission("PlateMines.StonePlate.Explode") && !p.hasPermission("PlateMines.StonePlate.Stop.Explode"))) {
-						ExplodePlayerInteract(event, interactedMaterial);
+					if ((!WoodenPlate.equalsIgnoreCase("FALSE") || WoodenPlatePermission) && event.getClickedBlock().getType().name().equals("WOOD_PLATE")) {
+						if (WoodenPlate.equalsIgnoreCase("STOP") || (p.hasPermission("PlateMines.WoodenPlate.Stop") && !p.hasPermission("PlateMines.WoodenPlate.Stop.Ignore"))) {
+							event.setCancelled(true);
+							return;
+						} 
+						else if (WoodenPlate.equalsIgnoreCase("EXPLODE") || (p.hasPermission("PlateMines.WoodenPlate.Explode") && !p.hasPermission("PlateMines.WoodenPlate.Explode.Ignore"))) {
+							ExplodePlayerInteract(event, interactedMaterial);
+						}
+						else if (WoodenPlate.equalsIgnoreCase("KILL") || (p.hasPermission("PlateMines.WoodenPlate.Kill") && !p.hasPermission("PlateMines.WoodenPlate.Kill.Ignore"))) {
+							KillPlayerInteract(event, interactedMaterial);
+						}
 					}
-					else if (StonePlate.equalsIgnoreCase("KILL") || (p.hasPermission("PlateMines.StonePlate.Kill") && !p.hasPermission("PlateMines.StonePlate.Kill.Ignore"))) {
-						KillPlayerInteract(event, interactedMaterial);
-						return;
+					if ((!IronPlate.equalsIgnoreCase("FALSE") || IronPlatePermission) && event.getClickedBlock().getType().name().equals("IRON_PLATE")) {
+						if (IronPlate.equalsIgnoreCase("STOP") || (p.hasPermission("PlateMines.IronPlate.Stop") && !p.hasPermission("PlateMines.IronPlate.Stop.Ignore"))) {
+							event.setCancelled(true);
+							return;
+						} 
+						else if (IronPlate.equalsIgnoreCase("EXPLODE") || (p.hasPermission("PlateMines.IronPlate.Explode") && !p.hasPermission("PlateMines.IronPlate.Explode.Ignore"))) {
+							ExplodePlayerInteract(event, interactedMaterial);
+						}
+						else if (IronPlate.equalsIgnoreCase("KILL") || (p.hasPermission("PlateMines.IronPlate.Kill") && !p.hasPermission("PlateMines.IronPlate.Kill.Ignore"))) {
+							KillPlayerInteract(event, interactedMaterial);
+						}
 					}
-				}
-				if ((!WoodenPlate.equalsIgnoreCase("FALSE") || WoodenPlatePermission) && event.getClickedBlock().getType().name().equals("WOOD_PLATE")) {
-					if (WoodenPlate.equalsIgnoreCase("STOP") || (p.hasPermission("PlateMines.WoodenPlate.Stop") && !p.hasPermission("PlateMines.WoodenPlate.Stop.Ignore"))) {
-						event.setCancelled(true);
-						return;
-					} 
-					else if (WoodenPlate.equalsIgnoreCase("EXPLODE") || (p.hasPermission("PlateMines.WoodenPlate.Explode") && !p.hasPermission("PlateMines.WoodenPlate.Explode.Ignore"))) {
-						ExplodePlayerInteract(event, interactedMaterial);
+					if ((!GoldPlate.equals("FALSE") || GoldPlatePermission) && event.getClickedBlock().getType().name().equals("GOLD_PLATE")) {
+						if (GoldPlate.equalsIgnoreCase("STOP") || (p.hasPermission("PlateMines.GoldPlate.Stop") && !p.hasPermission("PlateMines.GoldPlate.Stop.Ignore"))) {
+							event.setCancelled(true);
+							return;
+						} 
+						else if (GoldPlate.equalsIgnoreCase("EXPLODE") || (p.hasPermission("PlateMines.GoldPlate.Explode") && !p.hasPermission("PlateMines.GoldPlate.Explode.Ignore"))) {
+							ExplodePlayerInteract(event, interactedMaterial);
+						}
+						else if (GoldPlate.equalsIgnoreCase("KILL") || (p.hasPermission("PlateMines.GoldPlate.Kill") && !p.hasPermission("PlateMines.GoldPlate.Kill.Ignore"))) {
+							KillPlayerInteract(event, interactedMaterial);
+						}
 					}
-					else if (WoodenPlate.equalsIgnoreCase("KILL") || (p.hasPermission("PlateMines.WoodenPlate.Kill") && !p.hasPermission("PlateMines.WoodenPlate.Kill.Ignore"))) {
-						KillPlayerInteract(event, interactedMaterial);
-					}
-				}
-				if ((!IronPlate.equalsIgnoreCase("FALSE") || IronPlatePermission) && event.getClickedBlock().getType().name().equals("IRON_PLATE")) {
-					if (IronPlate.equalsIgnoreCase("STOP") || (p.hasPermission("PlateMines.IronPlate.Stop") && !p.hasPermission("PlateMines.IronPlate.Stop.Ignore"))) {
-						event.setCancelled(true);
-						return;
-					} 
-					else if (IronPlate.equalsIgnoreCase("EXPLODE") || (p.hasPermission("PlateMines.IronPlate.Explode") && !p.hasPermission("PlateMines.IronPlate.Explode.Ignore"))) {
-						ExplodePlayerInteract(event, interactedMaterial);
-					}
-					else if (IronPlate.equalsIgnoreCase("KILL") || (p.hasPermission("PlateMines.IronPlate.Kill") && !p.hasPermission("PlateMines.IronPlate.Kill.Ignore"))) {
-						KillPlayerInteract(event, interactedMaterial);
-					}
-				}
-				if ((!GoldPlate.equals("FALSE") || GoldPlatePermission) && event.getClickedBlock().getType().name().equals("GOLD_PLATE")) {
-					if (GoldPlate.equalsIgnoreCase("STOP") || (p.hasPermission("PlateMines.GoldPlate.Stop") && !p.hasPermission("PlateMines.GoldPlate.Stop.Ignore"))) {
-						event.setCancelled(true);
-						return;
-					} 
-					else if (GoldPlate.equalsIgnoreCase("EXPLODE") || (p.hasPermission("PlateMines.GoldPlate.Explode") && !p.hasPermission("PlateMines.GoldPlate.Explode.Ignore"))) {
-						ExplodePlayerInteract(event, interactedMaterial);
-					}
-					else if (GoldPlate.equalsIgnoreCase("KILL") || (p.hasPermission("PlateMines.GoldPlate.Kill") && !p.hasPermission("PlateMines.GoldPlate.Kill.Ignore"))) {
-						KillPlayerInteract(event, interactedMaterial);
-					}
-				}
-				if ((!TripWire.equals("FALSE") || TripWirePermission) && event.getClickedBlock().getType().name().equals("TRIPWIRE")) {
-					if (TripWire.equalsIgnoreCase("STOP") || (p.hasPermission("PlateMines.TripWire.Stop") && !p.hasPermission("PlateMines.TripWire.Stop.Ignore"))) {
-						event.setCancelled(true);
-						return;
-					} 
-					else if (TripWire.equalsIgnoreCase("EXPLODE") || (p.hasPermission("PlateMines.TripWire.Explode") && !p.hasPermission("PlateMines.TripWire.Explode.Ignore"))) {
-						ExplodePlayerInteract(event, interactedMaterial);
-					}
-					else if (TripWire.equalsIgnoreCase("KILL") || (p.hasPermission("PlateMines.TripWire.Kill") && !p.hasPermission("PlateMines.TripWire.Kill.Ignore"))) {
-						KillPlayerInteract(event, interactedMaterial);
+					if ((!TripWire.equals("FALSE") || TripWirePermission) && event.getClickedBlock().getType().name().equals("TRIPWIRE")) {
+						if (TripWire.equalsIgnoreCase("STOP") || (p.hasPermission("PlateMines.TripWire.Stop") && !p.hasPermission("PlateMines.TripWire.Stop.Ignore"))) {
+							event.setCancelled(true);
+							return;
+						} 
+						else if (TripWire.equalsIgnoreCase("EXPLODE") || (p.hasPermission("PlateMines.TripWire.Explode") && !p.hasPermission("PlateMines.TripWire.Explode.Ignore"))) {
+							ExplodePlayerInteract(event, interactedMaterial);
+						}
+						else if (TripWire.equalsIgnoreCase("KILL") || (p.hasPermission("PlateMines.TripWire.Kill") && !p.hasPermission("PlateMines.TripWire.Kill.Ignore"))) {
+							KillPlayerInteract(event, interactedMaterial);
+						}
 					}
 				}
 			}
