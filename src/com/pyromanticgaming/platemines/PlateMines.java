@@ -12,6 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Random;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -84,7 +85,7 @@ public final class PlateMines extends JavaPlugin implements Listener{
 		Material interactedBlock = event.getBlock().getType();
 
 		if (interactedBlock != null) {
-			if (!StonePlateMob.equals("FALSE") && interactedBlock.equals(Material.STONE_PLATE)) {
+			if (!StonePlateMob.equals("FALSE") && interactedBlock.equals(Material.STONE_PRESSURE_PLATE)) {
 				if (StonePlateMob.equals("STOP")) {
 					event.setCancelled(true);
 				} 
@@ -102,7 +103,7 @@ public final class PlateMines extends JavaPlugin implements Listener{
 					event.getEntity().setFallDistance(255);
 				}
 			}
-			if (!WoodenPlateMob.equals("FALSE") && interactedBlock.equals(Material.WOOD_PLATE)) {
+			if (!WoodenPlateMob.equals("FALSE") && (interactedBlock.equals(Material.ACACIA_PRESSURE_PLATE) || interactedBlock.equals(Material.BIRCH_PRESSURE_PLATE) || interactedBlock.equals(Material.DARK_OAK_PRESSURE_PLATE) || interactedBlock.equals(Material.JUNGLE_PRESSURE_PLATE) || interactedBlock.equals(Material.OAK_PRESSURE_PLATE) || interactedBlock.equals(Material.SPRUCE_PRESSURE_PLATE))) {
 				if (WoodenPlateMob.equals("STOP")) {
 					event.setCancelled(true);
 				} 
@@ -120,7 +121,7 @@ public final class PlateMines extends JavaPlugin implements Listener{
 					event.getEntity().setFallDistance(255);
 				}
 			}
-			if (!IronPlateMob.equals("FALSE") && interactedBlock.equals(Material.IRON_PLATE)) {
+			if (!IronPlateMob.equals("FALSE") && interactedBlock.equals(Material.HEAVY_WEIGHTED_PRESSURE_PLATE)) {
 				if (IronPlateMob.equals("STOP")) {
 					event.setCancelled(true);
 				} 
@@ -138,7 +139,7 @@ public final class PlateMines extends JavaPlugin implements Listener{
 					event.getEntity().setFallDistance(255);
 				}
 			}
-			if (!GoldPlateMob.equals("FALSE") && interactedBlock.equals(Material.GOLD_PLATE)) {
+			if (!GoldPlateMob.equals("FALSE") && interactedBlock.equals(Material.LIGHT_WEIGHTED_PRESSURE_PLATE)) {
 				if (GoldPlateMob.equals("STOP")) {
 					event.setCancelled(true);
 				} 
@@ -176,7 +177,7 @@ public final class PlateMines extends JavaPlugin implements Listener{
 			}
 		}
 	}
-
+	
 	@EventHandler
 	public void onBlockBreak(BlockBreakEvent event) {
 		Player p = event.getPlayer();
@@ -198,12 +199,13 @@ public final class PlateMines extends JavaPlugin implements Listener{
 		Location blockloc = new Location(event.getPlayer().getWorld(), x, (y + 1), z);
 		Material blockmat = blockloc.getBlock().getType();
 
-		if ((((blockmat.equals(Material.WOOD_PLATE) && WoodenPlate.equalsIgnoreCase("Kill") && canBeWoodKilled) || (blockmat.equals(Material.STONE_PLATE) && StonePlate.equalsIgnoreCase("Kill") /* && canBeStoneKilled */) || (blockmat.equals(Material.IRON_PLATE) && IronPlate.equalsIgnoreCase("Kill") && canBeIronKilled) || (blockmat.equals(Material.GOLD_PLATE) && GoldPlate.equalsIgnoreCase("Kill") && canBeGoldKilled) || (blockmat.equals(Material.TRIPWIRE) && TripWire.equalsIgnoreCase("Kill") && canBeTripWireKilled)) || ((event.getBlock().getType().equals(Material.WOOD_PLATE) && WoodenPlate.equalsIgnoreCase("Kill") && canBeWoodKilled) || (event.getBlock().getType().equals(Material.STONE_PLATE) && StonePlate.equalsIgnoreCase("Kill") && canBeStoneKilled) || (event.getBlock().getType().equals(Material.IRON_PLATE) && IronPlate.equalsIgnoreCase("Kill") && canBeIronKilled) || (event.getBlock().getType().equals(Material.GOLD_PLATE) && GoldPlate.equalsIgnoreCase("Kill") && canBeGoldKilled) || (event.getBlock().getType().equals(Material.TRIPWIRE) && TripWire.equalsIgnoreCase("Kill") && canBeTripWireKilled)))) {
+		
+		
+		if ((((blockmat.equals(Material.ACACIA_PRESSURE_PLATE) || blockmat.equals(Material.BIRCH_PRESSURE_PLATE) || blockmat.equals(Material.DARK_OAK_PRESSURE_PLATE) || blockmat.equals(Material.JUNGLE_PRESSURE_PLATE) || blockmat.equals(Material.OAK_PRESSURE_PLATE) || blockmat.equals(Material.SPRUCE_PRESSURE_PLATE)) && WoodenPlate.equalsIgnoreCase("Kill") && canBeWoodKilled) || (blockmat.equals(Material.STONE_PRESSURE_PLATE) && StonePlate.equalsIgnoreCase("Kill") && canBeStoneKilled ) || (blockmat.equals(Material.HEAVY_WEIGHTED_PRESSURE_PLATE) && IronPlate.equalsIgnoreCase("Kill") && canBeIronKilled) || (blockmat.equals(Material.LIGHT_WEIGHTED_PRESSURE_PLATE) && GoldPlate.equalsIgnoreCase("Kill") && canBeGoldKilled) || (blockmat.equals(Material.TRIPWIRE) && TripWire.equalsIgnoreCase("Kill") && canBeTripWireKilled) || ((event.getBlock().getType().equals(Material.ACACIA_PRESSURE_PLATE) || event.getBlock().getType().equals(Material.BIRCH_PRESSURE_PLATE) || event.getBlock().getType().equals(Material.DARK_OAK_PRESSURE_PLATE) || event.getBlock().getType().equals(Material.JUNGLE_PRESSURE_PLATE) || event.getBlock().getType().equals(Material.OAK_PRESSURE_PLATE) || event.getBlock().getType().equals(Material.SPRUCE_PRESSURE_PLATE)) && WoodenPlate.equalsIgnoreCase("Kill") && canBeWoodKilled) || (event.getBlock().getType().equals(Material.STONE_PRESSURE_PLATE) && StonePlate.equalsIgnoreCase("Kill") && canBeStoneKilled) || (event.getBlock().getType().equals(Material.HEAVY_WEIGHTED_PRESSURE_PLATE) && IronPlate.equalsIgnoreCase("Kill") && canBeIronKilled) || (event.getBlock().getType().equals(Material.LIGHT_WEIGHTED_PRESSURE_PLATE) && GoldPlate.equalsIgnoreCase("Kill") && canBeGoldKilled) || (event.getBlock().getType().equals(Material.TRIPWIRE) && TripWire.equalsIgnoreCase("Kill") && canBeTripWireKilled))) {
 			KillPlayerBreakBlock(event, blockmat, blockloc);
 		}
 
-		if ((((blockmat.equals(Material.WOOD_PLATE) && WoodenPlate.equalsIgnoreCase("Explode") && canBeWoodExploded) || (blockmat.equals(Material.STONE_PLATE) && StonePlate.equalsIgnoreCase("Explode") && canBeStoneExploded) || (blockmat.equals(Material.IRON_PLATE) && IronPlate.equalsIgnoreCase("Explode") && canBeIronExploded) || (blockmat.equals(Material.GOLD_PLATE) && GoldPlate.equalsIgnoreCase("Explode") && canBeGoldExploded) || (blockmat.equals(Material.TRIPWIRE) && TripWire.equalsIgnoreCase("Explode") && canBeTripWireExploded)) || ((event.getBlock().getType().equals(Material.WOOD_PLATE) && WoodenPlate.equalsIgnoreCase("Explode") && canBeWoodExploded) || (event.getBlock().getType().equals(Material.STONE_PLATE) && StonePlate.equalsIgnoreCase("Explode") && canBeStoneExploded) || (event.getBlock().getType().equals(Material.IRON_PLATE) && IronPlate.equalsIgnoreCase("Explode") && canBeIronExploded) || (event.getBlock().getType().equals(Material.GOLD_PLATE) && GoldPlate.equalsIgnoreCase("Explode") && canBeGoldExploded) || (event.getBlock().getType().equals(Material.TRIPWIRE) && TripWire.equalsIgnoreCase("Explode") && canBeTripWireExploded)))) {
-			ExplodePlayerBreakBlock(event, blockmat, blockloc);
+		if ((((blockmat.equals(Material.ACACIA_PRESSURE_PLATE) || blockmat.equals(Material.BIRCH_PRESSURE_PLATE) || blockmat.equals(Material.DARK_OAK_PRESSURE_PLATE) || blockmat.equals(Material.JUNGLE_PRESSURE_PLATE) || blockmat.equals(Material.OAK_PRESSURE_PLATE) || blockmat.equals(Material.SPRUCE_PRESSURE_PLATE)) && WoodenPlate.equalsIgnoreCase("Explode") && canBeWoodExploded) || (blockmat.equals(Material.STONE_PRESSURE_PLATE) && StonePlate.equalsIgnoreCase("Explode") && canBeStoneExploded) || (blockmat.equals(Material.HEAVY_WEIGHTED_PRESSURE_PLATE) && IronPlate.equalsIgnoreCase("Explode") && canBeIronExploded) || (blockmat.equals(Material.LIGHT_WEIGHTED_PRESSURE_PLATE) && GoldPlate.equalsIgnoreCase("Explode") && canBeGoldExploded) || (blockmat.equals(Material.TRIPWIRE) && TripWire.equalsIgnoreCase("Explode") && canBeTripWireExploded)) || ((event.getBlock().getType().equals(Material.ACACIA_PRESSURE_PLATE) || event.getBlock().getType().equals(Material.BIRCH_PRESSURE_PLATE) || event.getBlock().getType().equals(Material.DARK_OAK_PRESSURE_PLATE) || event.getBlock().getType().equals(Material.JUNGLE_PRESSURE_PLATE) || event.getBlock().getType().equals(Material.OAK_PRESSURE_PLATE) || event.getBlock().getType().equals(Material.SPRUCE_PRESSURE_PLATE)) && WoodenPlate.equalsIgnoreCase("Explode") && canBeWoodExploded) || (event.getBlock().getType().equals(Material.STONE_PRESSURE_PLATE) && StonePlate.equalsIgnoreCase("Explode") && canBeStoneExploded) || (event.getBlock().getType().equals(Material.HEAVY_WEIGHTED_PRESSURE_PLATE) && IronPlate.equalsIgnoreCase("Explode") && canBeIronExploded) || (event.getBlock().getType().equals(Material.LIGHT_WEIGHTED_PRESSURE_PLATE) && GoldPlate.equalsIgnoreCase("Explode") && canBeGoldExploded) || (event.getBlock().getType().equals(Material.TRIPWIRE) && TripWire.equalsIgnoreCase("Explode") && canBeTripWireExploded)) {			ExplodePlayerBreakBlock(event, blockmat, blockloc);
 		}
 	}
 
@@ -228,10 +230,10 @@ public final class PlateMines extends JavaPlugin implements Listener{
 					Boolean tripwireclicked = false, goldlateclicked = false, ironplateclicked = false, stoneplateclicked = false, woodplateclicked = false;
 
 					if (event.getClickedBlock() != null) {
-						woodplateclicked = interactedMaterial.equals(Material.WOOD_PLATE) && !WoodenPlate.equalsIgnoreCase("FALSE");
-						stoneplateclicked = interactedMaterial.equals(Material.STONE_PLATE) && !StonePlate.equalsIgnoreCase("FALSE");
-						ironplateclicked = interactedMaterial.equals(Material.IRON_PLATE) && !IronPlate.equalsIgnoreCase("FALSE");
-						goldlateclicked = interactedMaterial.equals(Material.GOLD_PLATE) && !GoldPlate.equalsIgnoreCase("FALSE");
+						woodplateclicked = (interactedMaterial.equals(Material.ACACIA_PRESSURE_PLATE) || interactedMaterial.equals(Material.BIRCH_PRESSURE_PLATE) || interactedMaterial.equals(Material.DARK_OAK_PRESSURE_PLATE) || interactedMaterial.equals(Material.JUNGLE_PRESSURE_PLATE) || interactedMaterial.equals(Material.OAK_PRESSURE_PLATE) || interactedMaterial.equals(Material.SPRUCE_PRESSURE_PLATE)) && !WoodenPlate.equalsIgnoreCase("FALSE");
+						stoneplateclicked = interactedMaterial.equals(Material.STONE_PRESSURE_PLATE) && !StonePlate.equalsIgnoreCase("FALSE");
+						ironplateclicked = interactedMaterial.equals(Material.HEAVY_WEIGHTED_PRESSURE_PLATE) && !IronPlate.equalsIgnoreCase("FALSE");
+						goldlateclicked = interactedMaterial.equals(Material.LIGHT_WEIGHTED_PRESSURE_PLATE) && !GoldPlate.equalsIgnoreCase("FALSE");
 						tripwireclicked = interactedMaterial.equals(Material.TRIPWIRE) && !TripWire.equalsIgnoreCase("FALSE");
 					}
 
@@ -280,7 +282,7 @@ public final class PlateMines extends JavaPlugin implements Listener{
 							KillPlayerInteract(event, interactedMaterial);
 						}
 					}
-					if ((!IronPlate.equalsIgnoreCase("FALSE") || IronPlatePermission) && event.getClickedBlock().getType().name().equals("IRON_PLATE")) {
+					if ((!IronPlate.equalsIgnoreCase("FALSE") || IronPlatePermission) && event.getClickedBlock().getType().name().equals("HEAVY_WEIGHTED_PRESSURE_PLATE")) {
 						if (IronPlate.equalsIgnoreCase("STOP") || (p.hasPermission("PlateMines.IronPlate.Stop") && !p.hasPermission("PlateMines.IronPlate.Stop.Ignore"))) {
 							event.setCancelled(true);
 							return;
@@ -292,7 +294,7 @@ public final class PlateMines extends JavaPlugin implements Listener{
 							KillPlayerInteract(event, interactedMaterial);
 						}
 					}
-					if ((!GoldPlate.equals("FALSE") || GoldPlatePermission) && event.getClickedBlock().getType().name().equals("GOLD_PLATE")) {
+					if ((!GoldPlate.equals("FALSE") || GoldPlatePermission) && event.getClickedBlock().getType().name().equals("LIGHT_WEIGHTED_PRESSURE_PLATE")) {
 						if (GoldPlate.equalsIgnoreCase("STOP") || (p.hasPermission("PlateMines.GoldPlate.Stop") && !p.hasPermission("PlateMines.GoldPlate.Stop.Ignore"))) {
 							event.setCancelled(true);
 							return;
@@ -397,14 +399,14 @@ public final class PlateMines extends JavaPlugin implements Listener{
 		if (removeblock || Ignore) {
 			Block blockmain = event.getBlock().getLocation().getBlock();
 			Block blockabove = blockloc.getBlock();
-			if (blockmain.getType().equals(Material.WOOD_PLATE) || blockmain.getType().equals(Material.STONE_PLATE) || blockmain.getType().equals(Material.IRON_PLATE) || blockmain.getType().equals(Material.GOLD_PLATE) || blockmain.getType().equals(Material.TRIPWIRE)) {
+			if ((blockmain.getType().equals(Material.ACACIA_PRESSURE_PLATE) || blockmain.getType().equals(Material.BIRCH_PRESSURE_PLATE) || blockmain.getType().equals(Material.DARK_OAK_PRESSURE_PLATE) || blockmain.getType().equals(Material.JUNGLE_PRESSURE_PLATE) || blockmain.getType().equals(Material.OAK_PRESSURE_PLATE) || blockmain.getType().equals(Material.SPRUCE_PRESSURE_PLATE)) || blockmain.getType().equals(Material.STONE_PRESSURE_PLATE) || blockmain.getType().equals(Material.HEAVY_WEIGHTED_PRESSURE_PLATE) || blockmain.getType().equals(Material.LIGHT_WEIGHTED_PRESSURE_PLATE) || blockmain.getType().equals(Material.TRIPWIRE)) {
 				if (!removeblock) {
 					ItemStack blocktodrop = new ItemStack(blockmain.getType());
 					blockmain.getWorld().dropItemNaturally(blockloc, blocktodrop);
 				}
 				blockmain.setType(Material.AIR);
 			}else
-				if (blockmat.equals(Material.WOOD_PLATE) || blockmat.equals(Material.STONE_PLATE) || blockmat.equals(Material.IRON_PLATE) || blockmat.equals(Material.GOLD_PLATE) || blockmat.equals(Material.TRIPWIRE)) {
+				if ((blockmat.equals(Material.ACACIA_PRESSURE_PLATE) || blockmat.equals(Material.BIRCH_PRESSURE_PLATE) || blockmat.equals(Material.DARK_OAK_PRESSURE_PLATE) || blockmat.equals(Material.JUNGLE_PRESSURE_PLATE) || blockmat.equals(Material.OAK_PRESSURE_PLATE) || blockmat.equals(Material.SPRUCE_PRESSURE_PLATE)) || blockmat.equals(Material.STONE_PRESSURE_PLATE) || blockmat.equals(Material.HEAVY_WEIGHTED_PRESSURE_PLATE) || blockmat.equals(Material.LIGHT_WEIGHTED_PRESSURE_PLATE) || blockmat.equals(Material.TRIPWIRE)) {
 					if (!removeblock) {
 						ItemStack blocktodrop = new ItemStack(blockabove.getType());
 						blockabove.getWorld().dropItemNaturally(blockloc, blocktodrop);
@@ -435,14 +437,14 @@ public final class PlateMines extends JavaPlugin implements Listener{
 		if (removeblock || Ignore) {
 			Block blockmain = event.getBlock().getLocation().getBlock();
 			Block blockabove = blockloc.getBlock();
-			if (blockmain.getType().equals(Material.WOOD_PLATE) || blockmain.getType().equals(Material.STONE_PLATE) || blockmain.getType().equals(Material.IRON_PLATE) || blockmain.getType().equals(Material.GOLD_PLATE) || blockmain.getType().equals(Material.TRIPWIRE)) {
+			if ((blockmain.getType().equals(Material.ACACIA_PRESSURE_PLATE) || blockmain.getType().equals(Material.BIRCH_PRESSURE_PLATE) || blockmain.getType().equals(Material.DARK_OAK_PRESSURE_PLATE) || blockmain.getType().equals(Material.JUNGLE_PRESSURE_PLATE) || blockmain.getType().equals(Material.OAK_PRESSURE_PLATE) || blockmain.getType().equals(Material.SPRUCE_PRESSURE_PLATE)) || blockmain.getType().equals(Material.STONE_PRESSURE_PLATE) || blockmain.getType().equals(Material.HEAVY_WEIGHTED_PRESSURE_PLATE) || blockmain.getType().equals(Material.LIGHT_WEIGHTED_PRESSURE_PLATE) || blockmain.getType().equals(Material.TRIPWIRE)) {
 				if (!removeblock) {
 					ItemStack blocktodrop = new ItemStack(blockmain.getType());
 					blockmain.getWorld().dropItemNaturally(blockloc, blocktodrop);
 				}
 				blockmain.setType(Material.AIR);
 			}else
-				if (blockmat.equals(Material.WOOD_PLATE) || blockmat.equals(Material.STONE_PLATE) || blockmat.equals(Material.IRON_PLATE) || blockmat.equals(Material.GOLD_PLATE) || blockmat.equals(Material.TRIPWIRE)) {
+				if ((blockmat.equals(Material.ACACIA_PRESSURE_PLATE) || blockmat.equals(Material.BIRCH_PRESSURE_PLATE) || blockmat.equals(Material.DARK_OAK_PRESSURE_PLATE) || blockmat.equals(Material.JUNGLE_PRESSURE_PLATE) || blockmat.equals(Material.OAK_PRESSURE_PLATE) || blockmat.equals(Material.SPRUCE_PRESSURE_PLATE)) || blockmat.equals(Material.STONE_PRESSURE_PLATE) || blockmat.equals(Material.HEAVY_WEIGHTED_PRESSURE_PLATE) || blockmat.equals(Material.LIGHT_WEIGHTED_PRESSURE_PLATE) || blockmat.equals(Material.TRIPWIRE)) {
 					if (!removeblock) {
 						ItemStack blocktodrop = new ItemStack(blockabove.getType());
 						blockabove.getWorld().dropItemNaturally(blockloc, blocktodrop);
