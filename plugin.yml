@@ -1,5 +1,5 @@
 name: PlateMines
-version: 3.0.0.2
+version: 4.0.0.0r1-SNAPSHOT
 description: Stops players/Mob from using pressureplates and tripwires, configurable with other options.
 author: pyropyro78
 main: com.pyromanticgaming.platemines.PlateMines
